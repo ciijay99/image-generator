@@ -18,16 +18,22 @@ const CreatePost = () => {
     if (form.prompt) {
       try {
         setGeneratingImg(true);
-        const response = await fetch('http://localhost:5174/api/v1/dalle', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ prompt: form.prompt }),
-        });
+        const response = await fetch(
+          'https://image-generator-n4ht.onrender.com/api/v1/dalle',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ prompt: form.prompt }),
+          }
+        );
 
         const data = await response.json();
-        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
+        setForm({
+          ...form,
+          photo: `data:image/jpeg;base64,${data.photo}`,
+        });
       } catch (error) {
         alert(error);
       } finally {
@@ -43,13 +49,16 @@ const CreatePost = () => {
     if (form.prompt && form.photo) {
       setLoading(true);
       try {
-        const response = await fetch('http://localhost:5174/api/v1/posts', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(form),
-        });
+        const response = await fetch(
+          'https://image-generator-n4ht.onrender.com/api/v1/posts',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(form),
+          }
+        );
 
         await response.json();
         navigate('/');
@@ -78,10 +87,12 @@ const CreatePost = () => {
   return (
     <section className='max-w-7xl mx-auto'>
       <div>
-        <h1 className='font-extrabold text-[#222328] text-[32px]'>Create</h1>
+        <h1 className='font-extrabold text-[#222328] text-[32px]'>
+          Create
+        </h1>
         <p className='mt-2 text-[#666e75] text-[16px] max-w-[500px]'>
-          Create imaginative and visually stunning images through DALL-E AI and
-          share them with the community
+          Create imaginative and visually stunning images through
+          DALL-E AI and share them with the community
         </p>
       </div>
 
@@ -142,8 +153,8 @@ const CreatePost = () => {
 
         <div className='mt-10'>
           <p className='mt-2 text-[#666e75] text-[14px]'>
-            Once you have created the image you want, you can share it with
-            others in the community.
+            Once you have created the image you want, you can share it
+            with others in the community.
           </p>
           <button
             type='submit'

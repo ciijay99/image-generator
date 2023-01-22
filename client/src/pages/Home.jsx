@@ -30,7 +30,7 @@ const Home = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          'http://localhost:5174/api/v1/posts',
+          'https://image-generator-n4ht.onrender.com/api/v1/posts',
           {
             method: 'GET',
             headers: {
